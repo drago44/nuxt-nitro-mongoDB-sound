@@ -1,0 +1,149 @@
+<script setup>
+  const props = defineProps({
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    defaultClass: {
+      type: String,
+      default: 'button',
+    },
+    variant: {
+      type: String,
+      default: 'transparent',
+      validator: function (value) {
+        return (
+          ['default', 'border', 'logout', 'menu', 'loading'].indexOf(value) !==
+          -1
+        );
+      },
+    },
+  });
+
+  const variantClass = computed(() => {
+    return {
+      'button--transparent': props.variant === 'transparent',
+      'button--border': props.variant === 'border',
+      'button--logout': props.variant === 'logout',
+      'button--menu-icon': props.variant === 'menu',
+      'button--loading': props.loading === true,
+    };
+  });
+</script>
+
+<template>
+  <button :disabled="loading || disabled" :class="[defaultClass, variantClass]">
+    <slot />
+  </button>
+</template>
+
+<style lang="scss">
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $mainColor;
+
+    &--border {
+      font-weight: 700;
+      border: $mainColor solid rem(1);
+      border-radius: rem(10);
+      padding: rem(5) rem(15);
+      @extend %hover-focus-active;
+    }
+
+    &--logout {
+      @include icon-av(logout, $mainColor, 24, 20);
+      @extend %hover-focus-active;
+
+      &:hover,
+      &:focus,
+      &:active {
+        @include update-icon-av(logout, $accentColor, 24, 20);
+      }
+    }
+
+    &--loading {
+      gap: rem(5);
+      @include icon-av(loading, $mainColor, 18, 18);
+
+      &::before {
+        animation: loading 1.2s linear infinite;
+      }
+
+      @keyframes loading {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+
+    &--menu-icon {
+      display: none;
+      @media (max-width: $mobile) {
+        display: block;
+        position: relative;
+        width: rem(30);
+        height: rem(20);
+        z-index: 5;
+
+        @media (any-hover: none) {
+          cursor: default;
+        }
+
+        span,
+        &::before,
+        &::after {
+          content: '';
+          transition: all 0.3s ease 0s;
+          right: 0;
+          position: absolute;
+          width: 100%;
+          height: rem(3);
+          background-color: $accentColor;
+          border-radius: 50%;
+        }
+
+        &::before {
+          top: 0;
+        }
+
+        &::after {
+          bottom: 0;
+        }
+
+        span {
+          top: calc(50% - rem(1.2));
+        }
+
+        &.menu-open {
+          span {
+            width: 0;
+          }
+
+          &::before,
+          &::after {
+            transform: scale(2);
+          }
+
+          &::before {
+            top: calc(50% - rem(1));
+            transform: rotate(-45deg) scale(1.1);
+          }
+
+          &::after {
+            bottom: calc(50% - rem(1));
+            transform: rotate(45deg) scale(1.1);
+          }
+        }
+      }
+    }
+  }
+</style>
