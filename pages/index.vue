@@ -3,18 +3,13 @@
     <section class="hero">
       <div class="hero__container">
         <div class="hero__info">
-          <h1 class="hero__title">Listen your favorite music</h1>
+          <h1 class="hero__title">Listen your <span>favorite</span> music</h1>
           <p class="hero__descr">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
             maiores ab eum accusantium fugit quibusdam perspiciatis numquam
             harum non rem!
           </p>
         </div>
-        <img
-          class="hero__img"
-          src="https://wallpaperaccess.com/full/1792302.jpg"
-          alt="music"
-        />
       </div>
     </section>
   </main>
@@ -23,8 +18,23 @@
 <style lang="scss">
   .hero {
     position: relative;
+    min-height: 50vh;
     color: white;
     padding: rem(100) rem(0);
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://wallpaperaccess.com/full/1792302.jpg');
+      background-size: 200% 100%;
+      background-repeat: repeat-x;
+      overflow: hidden;
+      animation: slide 30s linear infinite;
+    }
     &__container {
       display: flex;
       flex-direction: column;
@@ -34,8 +44,8 @@
     }
 
     &__info {
-      -webkit-backdrop-filter: blur(15px);
-      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(rem(15));
+      backdrop-filter: blur(rem(15));
       text-align: center;
       border-radius: rem(10);
       max-width: rem(700);
@@ -44,27 +54,23 @@
 
     &__title {
       @include adaptiveValue('font-size', 54, 30);
+      margin-bottom: rem(20);
+      span {
+        color: $accentColor;
+      }
     }
 
     &__descr {
       font-size: rem(20);
     }
-
-    &__img {
-      position: absolute;
-      z-index: -1;
-      min-width: 200%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      object-fit: cover;
-      animation: slide 30s linear infinite;
-    }
   }
 
   @keyframes slide {
+    0% {
+      background-position: 0 0;
+    }
     100% {
-      transform: translateX(-30%);
+      background-position: 100% 0;
     }
   }
 </style>
