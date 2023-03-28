@@ -2,6 +2,12 @@ body {
   font-family: sans-serif;
   line-height: 1.5;
   background-color: rgb(189, 189, 189);
+
+  &.menu-open {
+    overflow: hidden;
+    touch-action: none;
+    overscroll-behavior: none;
+  }
 }
 
 .wrapper {

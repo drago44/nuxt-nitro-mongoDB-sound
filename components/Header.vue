@@ -2,15 +2,17 @@
   import { storeToRefs } from 'pinia';
   import { useModalStore } from '@/stores/modal.store';
   import { useAuthStore } from '@/stores/auth.store';
+  import { useMenuStore } from '@/stores/menu.store';
 
   const modalStore = useModalStore();
   const authStore = useAuthStore();
+  const menuStore = useMenuStore();
 
   const { toggleAuthModal } = modalStore;
+  const { toogleMenu } = menuStore;
   const { isActiveItem } = storeToRefs(modalStore);
   const { userLoggedIn } = storeToRefs(authStore);
-
-  const menuOpen = ref(false);
+  const { menuOpen } = storeToRefs(menuStore);
 </script>
 
 <template>
@@ -45,7 +47,7 @@
           type="button"
           variant="menu"
           :class="{ 'menu-open': menuOpen }"
-          @click.prevent="menuOpen = !menuOpen"
+          @click.prevent="toogleMenu"
         >
           <span></span>
         </BaseButton>
@@ -110,6 +112,7 @@
         opacity: 0;
         visibility: hidden;
         z-index: 2;
+        transition: opacity 0.3s ease;
 
         &.menu-open {
           flex-wrap: nowrap;
@@ -117,7 +120,8 @@
           align-items: flex-end;
           width: 100vw;
           min-height: 100vh;
-          top: rem(70);
+          top: rem(60);
+          background-color: black;
           opacity: 1;
           overflow: auto;
           overflow-x: hidden;
