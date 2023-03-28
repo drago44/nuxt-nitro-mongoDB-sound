@@ -9,7 +9,7 @@
   const { toggleAuthModal } = modalStore;
   const { isActiveItem } = storeToRefs(modalStore);
   const { userLoggedIn } = storeToRefs(authStore);
-  
+
   const menuOpen = ref(false);
 </script>
 
@@ -129,6 +129,8 @@
     }
 
     &__item {
+      color: white;
+
       @media (max-width: $mobile) {
         transform: translate(1000%, 0);
         transition: all 0.3s ease;
@@ -180,6 +182,8 @@
       display: flex;
       align-items: center;
       span {
+        color: white;
+
         font-weight: 700;
         @extend %hover-focus-active;
       }
