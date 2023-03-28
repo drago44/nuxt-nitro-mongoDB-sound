@@ -30,10 +30,10 @@
       width: 100%;
       height: 100%;
       background-image: url('https://wallpaperaccess.com/full/1792302.jpg');
-      background-size: 200% 100%;
+      background-size: 200% 107%;
       background-repeat: repeat-x;
       overflow: hidden;
-      animation: slide 30s linear infinite;
+      animation: slide 120s linear infinite;
     }
     &__container {
       display: flex;
@@ -70,7 +70,7 @@
       background-position: 0 0;
     }
     100% {
-      background-position: 100% 0;
+      background-position: 400% 0;
     }
   }
 </style>
